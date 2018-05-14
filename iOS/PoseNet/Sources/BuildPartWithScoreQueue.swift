@@ -45,7 +45,7 @@ func scoreIsMaximumInLocalWindow(
         let xStart = max(heatmapX - localMaximumRadius, 0)
         let xEnd = min(heatmapX + localMaximumRadius + 1, width)
         for xCurrent in xStart..<xEnd {
-            if (scores[yCurrent,xCurrent,keypointId] > score) {
+            if (scores[yCurrent, xCurrent,keypointId] > score) {
                 localMaximum = false
                 break
             }

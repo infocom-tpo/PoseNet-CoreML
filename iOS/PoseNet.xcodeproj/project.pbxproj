@@ -22,6 +22,10 @@
 		CA84FAC320A9266A004CFED7 /* DecodeMultiPoses.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FAC220A9266A004CFED7 /* DecodeMultiPoses.swift */; };
 		CA84FAC520A928C9004CFED7 /* Keypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FAC420A928C9004CFED7 /* Keypoint.swift */; };
 		CA84FAC720A962D2004CFED7 /* UIImage+CVPixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FAC620A962D2004CFED7 /* UIImage+CVPixelBuffer.swift */; };
+		CA84FACC20A9776A004CFED7 /* offsets.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA84FAC820A9776A004CFED7 /* offsets.bin */; };
+		CA84FACD20A9776A004CFED7 /* displacementsFwd.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA84FAC920A9776A004CFED7 /* displacementsFwd.bin */; };
+		CA84FACE20A9776A004CFED7 /* displacementsBwd.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA84FACA20A9776A004CFED7 /* displacementsBwd.bin */; };
+		CA84FACF20A9776A004CFED7 /* heatmapScores.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA84FACB20A9776A004CFED7 /* heatmapScores.bin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +66,10 @@
 		CA84FAC220A9266A004CFED7 /* DecodeMultiPoses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeMultiPoses.swift; sourceTree = "<group>"; };
 		CA84FAC420A928C9004CFED7 /* Keypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keypoint.swift; sourceTree = "<group>"; };
 		CA84FAC620A962D2004CFED7 /* UIImage+CVPixelBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+CVPixelBuffer.swift"; sourceTree = "<group>"; };
+		CA84FAC820A9776A004CFED7 /* offsets.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = offsets.bin; sourceTree = "<group>"; };
+		CA84FAC920A9776A004CFED7 /* displacementsFwd.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = displacementsFwd.bin; sourceTree = "<group>"; };
+		CA84FACA20A9776A004CFED7 /* displacementsBwd.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = displacementsBwd.bin; sourceTree = "<group>"; };
+		CA84FACB20A9776A004CFED7 /* heatmapScores.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = heatmapScores.bin; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +136,10 @@
 		CA84FAAD20A92224004CFED7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CA84FACA20A9776A004CFED7 /* displacementsBwd.bin */,
+				CA84FAC920A9776A004CFED7 /* displacementsFwd.bin */,
+				CA84FACB20A9776A004CFED7 /* heatmapScores.bin */,
+				CA84FAC820A9776A004CFED7 /* offsets.bin */,
 				CA84FAAB20A92219004CFED7 /* tennis_in_crowd.jpg */,
 				CA84FAAE20A9227A004CFED7 /* posenet.mlmodel */,
 			);
@@ -243,9 +255,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA84FAA420A921DE004CFED7 /* LaunchScreen.storyboard in Resources */,
+				CA84FACE20A9776A004CFED7 /* displacementsBwd.bin in Resources */,
+				CA84FACC20A9776A004CFED7 /* offsets.bin in Resources */,
+				CA84FACD20A9776A004CFED7 /* displacementsFwd.bin in Resources */,
 				CA84FAA120A921DE004CFED7 /* Assets.xcassets in Resources */,
 				CA84FA9F20A921DB004CFED7 /* Main.storyboard in Resources */,
 				CA84FAAC20A92219004CFED7 /* tennis_in_crowd.jpg in Resources */,
+				CA84FACF20A9776A004CFED7 /* heatmapScores.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

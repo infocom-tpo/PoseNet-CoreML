@@ -57,7 +57,9 @@ img = load_img("./images/tennis_in_crowd.jpg", target_size=(513, 513))
 print(img)
 out = coreml_model.predict({'image__0': img})['heatmap__0']
 print("#output coreml result.")
+
 print(out.shape)
 print(np.transpose(out))
-print(out[:, 0:1, 0:1])
+print(out)
+# print(out[:, 0:1, 0:1])
 print(np.mean(out))

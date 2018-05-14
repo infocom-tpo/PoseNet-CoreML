@@ -32,8 +32,6 @@ func decode(
     _ width: Int) -> Vector2DInt {
     
     return Vector2DInt(
-//            x: clamp(round(point.x / outputStride), 0, width - 1),
-//            y: clamp(round(point.y / outputStride), 0, height - 1)
         x: Int((Float(point.x) / Float(outputStride)).rounded()).clamp(0,width-1),
         y: Int((Float(point.y) / Float(outputStride)).rounded()).clamp(0,height-1)
     )

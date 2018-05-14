@@ -1,19 +1,10 @@
 import TensorSwift
 
-func getTensor(_ name: String,_ shape: Shape) -> Tensor {
-    let url = Bundle.main.url(forResource: name, withExtension: "bin")!
-    let binaryData = try! Data(contentsOf: url, options: [])
-    let values: [Float32] = binaryData.withUnsafeBytes {
-        [Float32](UnsafeBufferPointer(start: $0, count: binaryData.count/MemoryLayout<Float32>.stride))
-    }
-    return Tensor(shape: shape, elements: values)
-}
-
 func getOffsetPoint(
     y: Int, x: Int, keypoint: Int, offsets: Tensor) -> Vector2D {
     return Vector2D(
-        x: offsets[keypoint + NUM_KEYPOINTS, y, x],
-        y: offsets[keypoint, y, x]
+        x: offsets[y, x, keypoint + NUM_KEYPOINTS],
+        y: offsets[y, x, keypoint]
     )
 }
 
@@ -56,3 +47,32 @@ extension UIImage {
         return resizedImage
     }
 }
+
+//func scalePose(pose: Pose, scale: number) -> Pose {
+//    return {
+//        score: pose.score,
+//        keypoints: pose.keypoints.map(
+//            ({score, part, position}) => ({
+//            score,
+//            part,
+//            position: {x: position.x * scale, y: position.y * scale}
+//        }))
+//    }
+//}
+//
+//func scalePoses(poses: [Pose], scale: Int) -> [Pose] {
+//    if (scale == 1) {
+//        return poses
+//    }
+//    return poses.map(pose => scalePose(pose, scale))
+//}
+
+//func getValidResolution(
+//    imageScaleFactor: Int, inputDimension: Int,
+//    outputStride: Int) -> Int {
+//        let evenResolution = inputDimension * imageScaleFactor - 1;
+//
+//        return evenResolution - (evenResolution % outputStride) + 1;
+//}
+
+
