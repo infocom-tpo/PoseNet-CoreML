@@ -1,0 +1,16 @@
+PODS:
+  - TensorSwift (0.2.2)
+
+DEPENDENCIES:
+  - TensorSwift (~> 0.2)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - TensorSwift
+
+SPEC CHECKSUMS:
+  TensorSwift: 09217b0fb41272c6a178ba50b4bb01f2d10d88be
+
+PODFILE CHECKSUM: 5c68b7348b32d6144142e40fbbd18edb47adb157
+
+COCOAPODS: 1.5.2
