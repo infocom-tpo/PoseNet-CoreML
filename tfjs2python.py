@@ -30,17 +30,19 @@ f.close()
 for x in variables:
     filename = variables[x]["filename"]
     byte = open('./waits/'+filename,'rb').read()
-    fmt = str (len(byte) / struct.calcsize('f')) + 'f'
+    fmt = str (int (len(byte) / struct.calcsize('f'))) + 'f'
     d = struct.unpack(fmt, byte) 
-    d = tf.cast(d, tf.float32)
+    d = np.array(d,dtype=np.float64)
+    d = tf.cast(d, tf.float64)
     d = tf.reshape(d,variables[x]["shape"])
     variables[x]["x"] = tf.Variable(d,name=x)
 
 def read_imgfile(path, width, height):
-    val_image = cv2.imread(path, cv2.IMREAD_COLOR)
-    val_image = val_image.astype(float)
-    val_image = val_image * (2.0 / 255.0) - 1.0
-    return val_image
+    img = cv2.imread(path)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    img = img.astype(float)
+    img = img * (2.0 / 255.0) - 1.0
+    return img
 
 def convToOutput(mobileNetOutput, outputLayerName):
     w = tf.nn.conv2d(mobileNetOutput,weights(outputLayerName),[1,1,1,1],padding='SAME')
@@ -48,10 +50,13 @@ def convToOutput(mobileNetOutput, outputLayerName):
     return w
 
 def conv(inputs, stride, blockId):
-    w = tf.nn.conv2d(inputs,weights("Conv2d_" + str(blockId)), stride, padding='SAME')
-    w = tf.nn.bias_add(w,biases("Conv2d_" + str(blockId)))
-    w = tf.nn.relu6(w)
-    return w
+    # w = tf.nn.conv2d(inputs,weights("Conv2d_" + str(blockId)), stride, padding='SAME')
+    # w = tf.nn.bias_add(w,biases("Conv2d_" + str(blockId)))
+    # w = tf.nn.relu6(w)
+    # return w
+    return tf.nn.relu6(
+        tf.nn.conv2d(inputs,weights("Conv2d_" + str(blockId)), stride, padding='SAME') 
+        + biases("Conv2d_" + str(blockId)))
 
 def weights(layerName):
     return variables["MobilenetV1/" + layerName + "/weights"]['x']
@@ -80,7 +85,7 @@ def separableConv(inputs, stride, blockID, dilations):
     return w
 
 
-image = tf.placeholder(tf.float32, shape=[1, 513, 513, 3],name='image')
+image = tf.placeholder(tf.float64, shape=[1, 513, 513, 3],name='image')
 
 count = 0
 x = image
@@ -117,7 +122,7 @@ with tf.Session() as sess:
     saver = tf.train.Saver()
 
     ans = sess.run([heatmaps,offsets,displacementFwd,displacementBwd], feed_dict={
-            image: [np.ndarray(shape=(513, 513, 3),dtype=np.float32)]
+            image: [np.ndarray(shape=(513, 513, 3),dtype=np.float64)]
         }
     )
 
@@ -131,7 +136,7 @@ with tf.Session() as sess:
 
     # Result
     input_image = read_imgfile("./images/tennis_in_crowd.jpg",None,None)
-    input_image = np.array(input_image,dtype=np.float32)
+    input_image = np.array(input_image,dtype=np.float64)
     input_image = input_image.reshape(1,513,513,3)
     mobileNetOutput = sess.run(x, feed_dict={ image: input_image } )
 
