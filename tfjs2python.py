@@ -32,8 +32,8 @@ for x in variables:
     byte = open('./waits/'+filename,'rb').read()
     fmt = str (int (len(byte) / struct.calcsize('f'))) + 'f'
     d = struct.unpack(fmt, byte) 
-    d = np.array(d,dtype=np.float64)
-    d = tf.cast(d, tf.float64)
+    # d = np.array(d,dtype=np.float32)
+    d = tf.cast(d, tf.float32)
     d = tf.reshape(d,variables[x]["shape"])
     variables[x]["x"] = tf.Variable(d,name=x)
 
@@ -85,7 +85,7 @@ def separableConv(inputs, stride, blockID, dilations):
     return w
 
 
-image = tf.placeholder(tf.float64, shape=[1, 513, 513, 3],name='image')
+image = tf.placeholder(tf.float32, shape=[1, 513, 513, 3],name='image')
 
 count = 0
 x = image
@@ -122,7 +122,7 @@ with tf.Session() as sess:
     saver = tf.train.Saver()
 
     ans = sess.run([heatmaps,offsets,displacementFwd,displacementBwd], feed_dict={
-            image: [np.ndarray(shape=(513, 513, 3),dtype=np.float64)]
+            image: [np.ndarray(shape=(513, 513, 3),dtype=np.float32)]
         }
     )
 
@@ -136,7 +136,7 @@ with tf.Session() as sess:
 
     # Result
     input_image = read_imgfile("./images/tennis_in_crowd.jpg",None,None)
-    input_image = np.array(input_image,dtype=np.float64)
+    input_image = np.array(input_image,dtype=np.float32)
     input_image = input_image.reshape(1,513,513,3)
     mobileNetOutput = sess.run(x, feed_dict={ image: input_image } )
 
