@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7952B60F94DEFCF4708C849F /* Pods_PoseNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B16AA2085F01B31FD19AE2 /* Pods_PoseNet.framework */; };
+		CA2C781820AAA5DF007B0256 /* frisbee.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CA2C781720AAA5DF007B0256 /* frisbee.jpg */; };
 		CA304FDC20A9B8CD0073FD62 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA304FDB20A9B8CD0073FD62 /* PriorityQueue.swift */; };
 		CA304FE020A9B99A0073FD62 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA304FDF20A9B99A0073FD62 /* Heap.swift */; };
+		CA5A875220AAA6B3004E51F6 /* soccer.png in Resources */ = {isa = PBXBuildFile; fileRef = CA5A874F20AAA6B3004E51F6 /* soccer.png */; };
 		CA84FA9A20A921DB004CFED7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FA9920A921DB004CFED7 /* AppDelegate.swift */; };
 		CA84FA9C20A921DB004CFED7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FA9B20A921DB004CFED7 /* ViewController.swift */; };
 		CA84FA9F20A921DB004CFED7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA84FA9D20A921DB004CFED7 /* Main.storyboard */; };
@@ -51,8 +53,10 @@
 		17B16AA2085F01B31FD19AE2 /* Pods_PoseNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PoseNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D7E89123A3F83BE226BAD5C /* Pods-PoseNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoseNet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PoseNet/Pods-PoseNet.debug.xcconfig"; sourceTree = "<group>"; };
 		4F161A57CC8DD5AA246BF99E /* Pods-PoseNet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoseNet.release.xcconfig"; path = "Pods/Target Support Files/Pods-PoseNet/Pods-PoseNet.release.xcconfig"; sourceTree = "<group>"; };
+		CA2C781720AAA5DF007B0256 /* frisbee.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = frisbee.jpg; sourceTree = "<group>"; };
 		CA304FDB20A9B8CD0073FD62 /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		CA304FDF20A9B99A0073FD62 /* Heap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
+		CA5A874F20AAA6B3004E51F6 /* soccer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = soccer.png; sourceTree = "<group>"; };
 		CA84FA9620A921DB004CFED7 /* PoseNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoseNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA84FA9920A921DB004CFED7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA84FA9B20A921DB004CFED7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +154,8 @@
 		CA84FAAD20A92224004CFED7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CA5A874F20AAA6B3004E51F6 /* soccer.png */,
+				CA2C781720AAA5DF007B0256 /* frisbee.jpg */,
 				CA84FACA20A9776A004CFED7 /* displacementsBwd.bin */,
 				CA84FAC920A9776A004CFED7 /* displacementsFwd.bin */,
 				CA84FACB20A9776A004CFED7 /* heatmapScores.bin */,
@@ -270,9 +276,11 @@
 			files = (
 				CA84FAA420A921DE004CFED7 /* LaunchScreen.storyboard in Resources */,
 				CA84FACE20A9776A004CFED7 /* displacementsBwd.bin in Resources */,
+				CA2C781820AAA5DF007B0256 /* frisbee.jpg in Resources */,
 				CA84FACC20A9776A004CFED7 /* offsets.bin in Resources */,
 				CA84FACD20A9776A004CFED7 /* displacementsFwd.bin in Resources */,
 				CA84FAA120A921DE004CFED7 /* Assets.xcassets in Resources */,
+				CA5A875220AAA6B3004E51F6 /* soccer.png in Resources */,
 				CA84FA9F20A921DB004CFED7 /* Main.storyboard in Resources */,
 				CA84FAAC20A92219004CFED7 /* tennis_in_crowd.jpg in Resources */,
 				CA84FACF20A9776A004CFED7 /* heatmapScores.bin in Resources */,

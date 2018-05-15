@@ -3,10 +3,10 @@ import TensorSwift
 extension PoseNet {
 
     func getDisplacement(_ i: Int,_ point: Vector2DInt,_ displacements: Tensor) -> Vector2D {
-        let numEdges = Int(displacements.shape.dimensions[2].value / 2)
+        let numEdges = Int(displacements.shape.dimensions[0].value / 2)
         return Vector2D(
-            x: displacements[point.y, point.x, numEdges + i],
-            y: displacements[point.y, point.x, i]
+            x: displacements[numEdges + i, point.y, point.x],
+            y: displacements[i, point.y, point.x]
         )
     }
 
@@ -30,7 +30,7 @@ extension PoseNet {
         _ edgeId: Int, _ sourceKeypoint: Keypoint,_ targetKeypointId: Int,
         _ scoresBuffer: Tensor,_ offsets: Tensor,_ outputStride: Int,
         _ displacements: Tensor) -> Keypoint {
-        let height = scoresBuffer.shape.dimensions[0].value
+        let height = scoresBuffer.shape.dimensions[2].value
         let width = scoresBuffer.shape.dimensions[1].value
         
         // Nearest neighbor interpolation for the source->target displacements.
@@ -55,7 +55,7 @@ extension PoseNet {
         let targetKeypointIndeces =
             decode(targetKeypoint, outputStride, height, width)
         
-        let score = scoresBuffer[targetKeypointIndeces.y, targetKeypointIndeces.x, targetKeypointId]
+        let score = scoresBuffer[targetKeypointId, targetKeypointIndeces.y, targetKeypointIndeces.x]
         
         return Keypoint(score: score, position: targetKeypoint, part: partNames[targetKeypointId])
     }
@@ -71,7 +71,7 @@ extension PoseNet {
         _ outputStride: Int,_ displacementsFwd: Tensor,
         _ displacementsBwd: Tensor) -> [Keypoint] {
         
-        let numParts = scores.shape.dimensions[2].value
+        let numParts = scores.shape.dimensions[0].value
         let numEdges = parentToChildEdges.count
         
         var instanceKeypoints = [Keypoint](

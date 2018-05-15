@@ -14,15 +14,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let poses = runOffline()
-        drawResults(poses)
-        
-        let fname = "tennis_in_crowd.jpg"
+//        let poses = runOffline()
+//        drawResults(poses)
+        let fname = "soccer.png"
+//        let fname = "frisbee.jpg"
+//        let fname = "tennis_in_crowd.jpg"
         if let image = UIImage(named: fname){
             imageView.image = image
-//            print(measure(runCoreML(image)).duration)
+            let result = measure(runCoreML(image))
+            
+            print(result.duration)
+            drawResults(result.result)
         }
-        
     }
     func drawResults(_ poses: [Pose]){
         let minPoseConfidence: Float32 = 0.5
@@ -99,30 +102,31 @@ class ViewController: UIViewController {
         })
     }
 
-    func runOffline() -> [Pose] {
-        
-        let scores = getTensor("heatmapScores",[33, 33, 17])
-        let offsets = getTensor("offsets",[33, 33, 34])
-        let displacementsFwd = getTensor("displacementsFwd",[33, 33, 32])
-        let displacementsBwd = getTensor("displacementsBwd",[33, 33, 32])
-        let outputStride = 16
-        
-        let posenet = PoseNet()
-        
-        let poses = posenet.decodeMultiplePoses(
-            scores: scores,
-            offsets: offsets,
-            displacementsFwd: displacementsFwd,
-            displacementsBwd: displacementsBwd,
-            outputStride: outputStride, maxPoseDetections: 15,
-            scoreThreshold: 0.5,nmsRadius: 20)
-        
-        return poses
-    }
-    
+//        Implementation
+//        CoreML: 33,33,17 = y,x,z
+//        Offline: 17,33,33 = z,y,x
+//    func runOffline() -> [Pose] {
+//
+//        let scores = getTensor("heatmapScores",[33, 33, 17])
+//        let offsets = getTensor("offsets",[33, 33, 34])
+//        let displacementsFwd = getTensor("displacementsFwd",[33, 33, 32])
+//        let displacementsBwd = getTensor("displacementsBwd",[33, 33, 32])
+//        let outputStride = 16
+//
+//        let posenet = PoseNet()
+//
+//        let poses = posenet.decodeMultiplePoses(
+//            scores: scores,
+//            offsets: offsets,
+//            displacementsFwd: displacementsFwd,
+//            displacementsBwd: displacementsBwd,
+//            outputStride: outputStride, maxPoseDetections: 15,
+//            scoreThreshold: 0.5,nmsRadius: 20)
+//
+//        return poses
+//    }
+//
     func runCoreML(_ image: UIImage) -> [Pose]{
-//        imageView.image = image
-        
         let posnet = PoseNet()
         
         let img = image.pixelBuffer(width: ImageWidth, height: ImageWidth)

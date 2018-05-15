@@ -5,8 +5,8 @@ extension PoseNet {
     func getOffsetPoint(
         y: Int, x: Int, keypoint: Int, offsets: Tensor) -> Vector2D {
         return Vector2D(
-            x: offsets[y, x, keypoint + NUM_KEYPOINTS],
-            y: offsets[y, x, keypoint]
+            x: offsets[keypoint + NUM_KEYPOINTS, y, x ],
+            y: offsets[keypoint, y, x ]
         )
     }
 

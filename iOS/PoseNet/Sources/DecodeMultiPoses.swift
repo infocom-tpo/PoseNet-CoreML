@@ -49,6 +49,7 @@ extension PoseNet {
             //            print("OK")
             //        }
             //
+            // Use of unresolved identifier 'getImageCoords'
             let rootImageCoords =
                 getImageCoords(part: root!.part,outputStride: outputStride,offsets: offsets)
             
