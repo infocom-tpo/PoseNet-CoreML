@@ -10,6 +10,19 @@ let partIds = partNames.enumerated().reduce(into: [String: Int]()) {
     $0[$1.element] = $1.offset
 }
 
+let connectedPartNames = [
+    ("leftHip", "leftShoulder"), ("leftElbow", "leftShoulder"),
+    ("leftElbow", "leftWrist"), ("leftHip", "leftKnee"),
+    ("leftKnee", "leftAnkle"), ("rightHip", "rightShoulder"),
+    ("rightElbow", "rightShoulder"), ("rightElbow", "rightWrist"),
+    ("rightHip", "rightKnee"), ("rightKnee", "rightAnkle"),
+    ("leftShoulder", "rightShoulder"), ("leftHip", "rightHip")
+]
+
+let connectedPartIndeces = connectedPartNames.map {
+    (partIds[$0.0]!,  partIds[$0.1]!)
+}
+
 let kLocalMaximumRadius = 1
 
 let poseChain = [
@@ -29,3 +42,6 @@ let parentChildrenTuples = poseChain.map {
 
 let parentToChildEdges = parentChildrenTuples.map { $1 }
 let childToParentEdges = parentChildrenTuples.map { $0.0 }
+
+
+

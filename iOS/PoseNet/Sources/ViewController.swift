@@ -9,18 +9,96 @@ class ViewController: UIViewController {
     let ImageWidth = 513
     let ImageHeight = 513
     
+    @IBOutlet weak var imageView: UIImageView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         let poses = runOffline()
-        print(poses)
+        drawResults(poses)
         
-//        let fname = "tennis_in_crowd.jpg"
-//        if let image = UIImage(named: fname){
+        let fname = "tennis_in_crowd.jpg"
+        if let image = UIImage(named: fname){
+            imageView.image = image
 //            print(measure(runCoreML(image)).duration)
-//        }
+        }
+        
     }
+    func drawResults(_ poses: [Pose]){
+        let minPoseConfidence: Float32 = 0.5
+        
+        poses.forEach { pose in
+            if (pose.score >= minPoseConfidence){
+                drawKeypoints(keypoints: pose.keypoints,minConfidence: minPoseConfidence)
+                drawSkeleton(keypoints: pose.keypoints,minConfidence: minPoseConfidence)
+            }
+        }
+    }
+    
+    func drawKeypoints(keypoints: [Keypoint], minConfidence: Float32){
+        keypoints.forEach { keypoint in
+            if (keypoint.score < minConfidence) {
+                return
+            }
+            
+            let center = CGPoint(x: Int(keypoint.position.x), y: Int(keypoint.position.y))
+            let line = CAShapeLayer()
+            
+            let trackPath = UIBezierPath(arcCenter: center,
+                                         radius: 3, startAngle: 0,
+                                         endAngle: 2.0 * .pi, clockwise: true)
+            line.path = trackPath.cgPath
+            line.strokeColor = UIColor.green.cgColor
+            self.view.layer.addSublayer(line)
+        }
+    }
+
+    func drawSegment(fromPoint start: CGPoint, toPoint end:CGPoint) {
+        let line = CAShapeLayer()
+        let linePath = UIBezierPath()
+        linePath.move(to: start)
+        linePath.addLine(to: end)
+        line.path = linePath.cgPath
+        line.strokeColor = UIColor.red.cgColor
+        line.lineWidth = 3
+        line.lineJoin = kCALineJoinRound
+        self.view.layer.addSublayer(line)
+    }
+    func drawSkeleton(keypoints: [Keypoint], minConfidence: Float32){
+        let adjacentKeyPoints = getAdjacentKeyPoints(
+            keypoints: keypoints, minConfidence: minConfidence);
+        
+        adjacentKeyPoints.forEach { keypoint in
+            drawSegment(
+                fromPoint:
+                    CGPoint(x: Int(keypoint[0].position.x),y: Int(keypoint[0].position.y)),
+                toPoint:
+                    CGPoint(x: Int(keypoint[1].position.x),y: Int(keypoint[1].position.y))
+            )
+        }
+    }
+    
+    func eitherPointDoesntMeetConfidence(
+        _ a: Float32,_ b: Float32,_ minConfidence: Float32) -> Bool {
+        return (a < minConfidence || b < minConfidence)
+    }
+    
+    func getAdjacentKeyPoints(
+        keypoints: [Keypoint], minConfidence: Float32)-> [[Keypoint]] {
+    
+        return connectedPartIndeces.reduce([[Keypoint]](), { res , joint in
+            var arr = res
+            if (eitherPointDoesntMeetConfidence(
+                keypoints[joint.0].score,
+                keypoints[joint.1].score,
+                minConfidence)){
+                return res
+            }
+            arr.append([keypoints[joint.0],keypoints[joint.1]])
+            return arr
+        })
+    }
+
     func runOffline() -> [Pose] {
         
         let scores = getTensor("heatmapScores",[33, 33, 17])
@@ -29,9 +107,9 @@ class ViewController: UIViewController {
         let displacementsBwd = getTensor("displacementsBwd",[33, 33, 32])
         let outputStride = 16
         
-        let posing = Posing()
+        let posenet = PoseNet()
         
-        let poses = posing.decodeMultiplePoses(
+        let poses = posenet.decodeMultiplePoses(
             scores: scores,
             offsets: offsets,
             displacementsFwd: displacementsFwd,
@@ -39,21 +117,13 @@ class ViewController: UIViewController {
             outputStride: outputStride, maxPoseDetections: 15,
             scoreThreshold: 0.5,nmsRadius: 20)
         
-        let imageScaleFactor:Float = 0.5
-        
-        let resolution =
-            posing.getValidResolution(imageScaleFactor: imageScaleFactor,
-                               inputDimension: ImageWidth,outputStride: outputStride)
-        
-        let scale = Int(ImageWidth / resolution)
-        
-        return posing.scalePoses(poses: poses,scale: scale)
+        return poses
     }
     
     func runCoreML(_ image: UIImage) -> [Pose]{
 //        imageView.image = image
         
-        let posing = Posing()
+        let posnet = PoseNet()
         
         let img = image.pixelBuffer(width: ImageWidth, height: ImageWidth)
         let result = try? model.prediction(image__0: img!)
@@ -73,7 +143,7 @@ class ViewController: UIViewController {
 //        print(sum)
         let outputStride = 16
 
-        let poses = posing.decodeMultiplePoses(
+        let poses = posnet.decodeMultiplePoses(
                         scores: tensors["heatmap__0"]!,
                         offsets: tensors["offset_2__0"]!,
                         displacementsFwd: tensors["displacement_fwd_2__0"]!,
@@ -81,15 +151,7 @@ class ViewController: UIViewController {
                         outputStride: outputStride, maxPoseDetections: 15,
                         scoreThreshold: 0.5,nmsRadius: 20)
         
-        let imageScaleFactor:Float = 0.5
-        
-        let resolution =
-            posing.getValidResolution(imageScaleFactor: imageScaleFactor,
-                               inputDimension: ImageWidth,outputStride: outputStride)
-        
-        let scale = Int(ImageWidth / resolution)
-        
-        return posing.scalePoses(poses: poses,scale: scale)
+        return poses
     }
 
     override func didReceiveMemoryWarning() {
@@ -124,6 +186,6 @@ class ViewController: UIViewController {
     }
 }
 
-class Posing {
+class PoseNet {
 }
 

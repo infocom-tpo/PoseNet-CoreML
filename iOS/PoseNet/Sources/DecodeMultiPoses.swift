@@ -1,6 +1,6 @@
 import TensorSwift
 
-extension Posing {
+extension PoseNet {
     
     func withinNmsRadiusOfCorrespondingPoint(
         poses: [Pose], squaredNmsRadius: Float32, vec: Vector2D, keypointId: Int) -> Bool {

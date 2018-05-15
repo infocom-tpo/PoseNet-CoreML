@@ -1,6 +1,6 @@
 import TensorSwift
 
-extension Posing {
+extension PoseNet {
     
     func getOffsetPoint(
         y: Int, x: Int, keypoint: Int, offsets: Tensor) -> Vector2D {

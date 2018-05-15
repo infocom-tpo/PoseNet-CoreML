@@ -1,6 +1,6 @@
 import TensorSwift
 
-extension Posing {
+extension PoseNet {
 
     func getDisplacement(_ i: Int,_ point: Vector2DInt,_ displacements: Tensor) -> Vector2D {
         let numEdges = Int(displacements.shape.dimensions[2].value / 2)
