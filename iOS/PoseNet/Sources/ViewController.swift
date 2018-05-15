@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         }
     }
     func drawResults(_ poses: [Pose]){
-        let minPoseConfidence: Float32 = 0.5
+        let minPoseConfidence: Float = 0.5
         
         poses.forEach { pose in
             if (pose.score >= minPoseConfidence){
@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func drawKeypoints(keypoints: [Keypoint], minConfidence: Float32){
+    func drawKeypoints(keypoints: [Keypoint], minConfidence: Float){
         keypoints.forEach { keypoint in
             if (keypoint.score < minConfidence) {
                 return
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         line.lineJoin = kCALineJoinRound
         self.view.layer.addSublayer(line)
     }
-    func drawSkeleton(keypoints: [Keypoint], minConfidence: Float32){
+    func drawSkeleton(keypoints: [Keypoint], minConfidence: Float){
         let adjacentKeyPoints = getAdjacentKeyPoints(
             keypoints: keypoints, minConfidence: minConfidence);
         
@@ -83,12 +83,12 @@ class ViewController: UIViewController {
     }
     
     func eitherPointDoesntMeetConfidence(
-        _ a: Float32,_ b: Float32,_ minConfidence: Float32) -> Bool {
+        _ a: Float,_ b: Float,_ minConfidence: Float) -> Bool {
         return (a < minConfidence || b < minConfidence)
     }
     
     func getAdjacentKeyPoints(
-        keypoints: [Keypoint], minConfidence: Float32)-> [[Keypoint]] {
+        keypoints: [Keypoint], minConfidence: Float)-> [[Keypoint]] {
     
         return connectedPartIndeces.reduce([[Keypoint]](), { res , joint in
             var arr = res
@@ -188,8 +188,8 @@ class ViewController: UIViewController {
     func getTensor(_ name: String,_ shape: Shape) -> Tensor {
         let url = Bundle.main.url(forResource: name, withExtension: "bin")!
         let binaryData = try! Data(contentsOf: url, options: [])
-        let values: [Float32] = binaryData.withUnsafeBytes {
-            [Float32](UnsafeBufferPointer(start: $0, count: binaryData.count/MemoryLayout<Float32>.stride))
+        let values: [Float] = binaryData.withUnsafeBytes {
+            [Float](UnsafeBufferPointer(start: $0, count: binaryData.count/MemoryLayout<Float>.stride))
         }
         return Tensor(shape: shape, elements: values)
     }

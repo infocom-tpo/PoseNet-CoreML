@@ -8,7 +8,7 @@ private func > (m1: PartWithScore, m2: PartWithScore) -> Bool {
 extension PoseNet {
     
     func buildPartWithScoreQueue(
-        scoreThreshold: Float32, localMaximumRadius: Int,
+        scoreThreshold: Float, localMaximumRadius: Int,
         scores: Tensor) -> PriorityQueue<PartWithScore> {
         
         var queue = PriorityQueue<PartWithScore>(sort: >)
@@ -41,7 +41,7 @@ extension PoseNet {
     }
 
     func scoreIsMaximumInLocalWindow(
-        _ keypointId: Int,_ score: Float32,_ heatmapY: Int,_ heatmapX: Int,
+        _ keypointId: Int,_ score: Float,_ heatmapY: Int,_ heatmapX: Int,
         _ localMaximumRadius: Int,_ scores: Tensor) -> Bool {
         let height = scores.shape.dimensions[1].value
         let width = scores.shape.dimensions[2].value

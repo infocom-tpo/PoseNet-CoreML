@@ -11,7 +11,7 @@ extension PoseNet {
     }
 
     func squaredDistance(
-        y1: Float32, x1: Float32, y2: Float32, x2: Float32) -> Float32 {
+        y1: Float, x1: Float, y2: Float, x2: Float) -> Float {
         let dy = y2 - y1
         let dx = x2 - x1
         return dy * dy + dx * dx
@@ -27,14 +27,14 @@ extension PoseNet {
         let vec = getOffsetPoint(y: part.heatmapY, x: part.heatmapX,
                                  keypoint: part.id,offsets: offsets)
         return Vector2D(
-            x: Float32(part.heatmapX * outputStride) + vec.x,
-            y: Float32(part.heatmapY * outputStride) + vec.y
+            x: Float(part.heatmapX * outputStride) + vec.x,
+            y: Float(part.heatmapY * outputStride) + vec.y
         )
     }
 
     func scalePose(pose: Pose, scale: Int) -> Pose {
         
-        let s = Float32(scale)
+        let s = Float(scale)
         return Pose(
             keypoints: pose.keypoints.map {
                     Keypoint(score: $0.score,

@@ -1,7 +1,7 @@
 import Foundation
 
 struct Vector2D {
-    var x:Float32, y:Float32
+    var x:Float, y:Float
 }
 
 struct Vector2DInt {
@@ -9,7 +9,7 @@ struct Vector2DInt {
 }
 
 struct PartWithScore {
-    var score: Float32 = 0
+    var score: Float = 0
     var part: Part
 }
 
@@ -20,14 +20,14 @@ struct Part {
 }
 
 struct Keypoint {
-    var score: Float32
+    var score: Float
     var position: Vector2D
     var part: String
 }
 
 struct Pose {
     var keypoints: [Keypoint]
-    var score: Float32
+    var score: Float
 }
 
 func half(_ k: Int) -> Int {
