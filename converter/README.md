@@ -1,4 +1,6 @@
-TensorFlowJS(PoseNet)のWaitの移植実験プロジェクト
+# PoseNet(TensorFlowJS) Wait Converter
+
+From PoseNet(TensorFlowJS) to CoreML-Model
 
 ## Get PoseNet Wait 
 ```
