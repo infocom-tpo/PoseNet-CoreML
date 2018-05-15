@@ -1,5 +1,0 @@
-{
-    // "python.pythonPath": "/usr/local/opt/python/bin/python3.6"
-    "python.pythonPath": "/Users/tpo/miniconda2/bin/python",
-    "python.linting.pylintEnabled": false
-}
