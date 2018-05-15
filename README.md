@@ -1,24 +1,13 @@
-TensorFlowJS(PoseNet)のWaitの移植実験プロジェクト
+# PoseNet-CoreML
 
-## Get PoseNet Wait 
-```
-$ python3 wget.py
-```
+## Environment
+* iOS11
+* Xcode9
 
-## PoseNet TensorFlowJS to Python
-```
-$ python tfjs2python.py
-```
 
-## TensorFlow(Python) to Coreml
-```
-$ python convert.py
-```
+## Installation
 
-## Dependencies
 ```
-$ pip install tfcoreml
-$ pip install coremltools
-$ pip install tensorflow==1.6.0
+$ cd iOS
+$ pod install
 ```
-
