@@ -23,6 +23,12 @@ coreml Time elapsed for roop: 0.160135984420776 seconds
 Elapsed time is 0.175379037857056 seconds.
 ```
 
+## Dependencies
+
+* [raywenderlich/swift-algorithm-club](https://github.com/raywenderlich/swift-algorithm-club)
+* [hollance/CoreMLHelpers](https://github.com/hollance/CoreMLHelpers)
+* [qoncept/TensorSwift](https://github.com/qoncept/TensorSwift)
+
 ## Development By Infocom TPO
 
 [Infocom TPO](https://lab.infocom.co.jp/)
