@@ -21,7 +21,6 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-*.mlmodel
 opencv2.framework
 .DS_Store
 
