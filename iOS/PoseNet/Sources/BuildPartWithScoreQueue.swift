@@ -1,10 +1,14 @@
 import TensorSwift
 
+private func > (m1: PartWithScore, m2: PartWithScore) -> Bool {
+    return m1.score > m2.score
+}
+
 func buildPartWithScoreQueue(
     scoreThreshold: Float32, localMaximumRadius: Int,
-    scores: Tensor) -> Queue<PartWithScore> {
+    scores: Tensor) -> PriorityQueue<PartWithScore> {
     
-    var queue = Queue<PartWithScore>()
+    var queue = PriorityQueue<PartWithScore>(sort: >)
     
     let height = scores.shape.dimensions[0].value
     let width = scores.shape.dimensions[1].value
@@ -21,6 +25,7 @@ func buildPartWithScoreQueue(
                 
                 if (scoreIsMaximumInLocalWindow(
                     keypointId, score, heatmapY, heatmapX, localMaximumRadius, scores)) {
+                    
                     queue.enqueue(
                         PartWithScore(score: score,
                                       part: Part(heatmapX: heatmapX, heatmapY: heatmapY, id: keypointId))

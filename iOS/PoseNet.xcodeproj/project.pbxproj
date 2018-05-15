@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7952B60F94DEFCF4708C849F /* Pods_PoseNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B16AA2085F01B31FD19AE2 /* Pods_PoseNet.framework */; };
+		CA304FDC20A9B8CD0073FD62 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA304FDB20A9B8CD0073FD62 /* PriorityQueue.swift */; };
+		CA304FE020A9B99A0073FD62 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA304FDF20A9B99A0073FD62 /* Heap.swift */; };
 		CA84FA9A20A921DB004CFED7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FA9920A921DB004CFED7 /* AppDelegate.swift */; };
 		CA84FA9C20A921DB004CFED7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FA9B20A921DB004CFED7 /* ViewController.swift */; };
 		CA84FA9F20A921DB004CFED7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA84FA9D20A921DB004CFED7 /* Main.storyboard */; };
@@ -20,7 +22,7 @@
 		CA84FAB620A9237F004CFED7 /* BuildPartWithScoreQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FAB520A9237F004CFED7 /* BuildPartWithScoreQueue.swift */; };
 		CA84FAB820A923A6004CFED7 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FAB720A923A6004CFED7 /* Util.swift */; };
 		CA84FAC320A9266A004CFED7 /* DecodeMultiPoses.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FAC220A9266A004CFED7 /* DecodeMultiPoses.swift */; };
-		CA84FAC520A928C9004CFED7 /* Keypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FAC420A928C9004CFED7 /* Keypoint.swift */; };
+		CA84FAC520A928C9004CFED7 /* Commont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FAC420A928C9004CFED7 /* Commont.swift */; };
 		CA84FAC720A962D2004CFED7 /* UIImage+CVPixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FAC620A962D2004CFED7 /* UIImage+CVPixelBuffer.swift */; };
 		CA84FACC20A9776A004CFED7 /* offsets.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA84FAC820A9776A004CFED7 /* offsets.bin */; };
 		CA84FACD20A9776A004CFED7 /* displacementsFwd.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA84FAC920A9776A004CFED7 /* displacementsFwd.bin */; };
@@ -49,6 +51,8 @@
 		17B16AA2085F01B31FD19AE2 /* Pods_PoseNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PoseNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D7E89123A3F83BE226BAD5C /* Pods-PoseNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoseNet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PoseNet/Pods-PoseNet.debug.xcconfig"; sourceTree = "<group>"; };
 		4F161A57CC8DD5AA246BF99E /* Pods-PoseNet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoseNet.release.xcconfig"; path = "Pods/Target Support Files/Pods-PoseNet/Pods-PoseNet.release.xcconfig"; sourceTree = "<group>"; };
+		CA304FDB20A9B8CD0073FD62 /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
+		CA304FDF20A9B99A0073FD62 /* Heap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
 		CA84FA9620A921DB004CFED7 /* PoseNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoseNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA84FA9920A921DB004CFED7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA84FA9B20A921DB004CFED7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,7 +68,7 @@
 		CA84FAB720A923A6004CFED7 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		CA84FAB920A9254D004CFED7 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		CA84FAC220A9266A004CFED7 /* DecodeMultiPoses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeMultiPoses.swift; sourceTree = "<group>"; };
-		CA84FAC420A928C9004CFED7 /* Keypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keypoint.swift; sourceTree = "<group>"; };
+		CA84FAC420A928C9004CFED7 /* Commont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commont.swift; sourceTree = "<group>"; };
 		CA84FAC620A962D2004CFED7 /* UIImage+CVPixelBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+CVPixelBuffer.swift"; sourceTree = "<group>"; };
 		CA84FAC820A9776A004CFED7 /* offsets.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = offsets.bin; sourceTree = "<group>"; };
 		CA84FAC920A9776A004CFED7 /* displacementsFwd.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = displacementsFwd.bin; sourceTree = "<group>"; };
@@ -99,6 +103,16 @@
 				4F161A57CC8DD5AA246BF99E /* Pods-PoseNet.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		CA304FE120A9C0090073FD62 /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+				CA304FDB20A9B8CD0073FD62 /* PriorityQueue.swift */,
+				CA304FDF20A9B99A0073FD62 /* Heap.swift */,
+				CA84FAC620A962D2004CFED7 /* UIImage+CVPixelBuffer.swift */,
+			);
+			path = Vendors;
 			sourceTree = "<group>";
 		};
 		CA84FA8D20A921DB004CFED7 = {
@@ -149,6 +163,7 @@
 		CA84FAB220A92355004CFED7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				CA304FE120A9C0090073FD62 /* Vendors */,
 				CA84FA9920A921DB004CFED7 /* AppDelegate.swift */,
 				CA84FA9B20A921DB004CFED7 /* ViewController.swift */,
 				CA84FAB020A9234B004CFED7 /* DecodePose.swift */,
@@ -156,8 +171,7 @@
 				CA84FAC220A9266A004CFED7 /* DecodeMultiPoses.swift */,
 				CA84FAB320A92378004CFED7 /* Types.swift */,
 				CA84FAB720A923A6004CFED7 /* Util.swift */,
-				CA84FAC420A928C9004CFED7 /* Keypoint.swift */,
-				CA84FAC620A962D2004CFED7 /* UIImage+CVPixelBuffer.swift */,
+				CA84FAC420A928C9004CFED7 /* Commont.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -314,9 +328,11 @@
 				CA84FA9C20A921DB004CFED7 /* ViewController.swift in Sources */,
 				CA84FA9A20A921DB004CFED7 /* AppDelegate.swift in Sources */,
 				CA84FAC320A9266A004CFED7 /* DecodeMultiPoses.swift in Sources */,
+				CA304FE020A9B99A0073FD62 /* Heap.swift in Sources */,
 				CA84FAB620A9237F004CFED7 /* BuildPartWithScoreQueue.swift in Sources */,
-				CA84FAC520A928C9004CFED7 /* Keypoint.swift in Sources */,
+				CA84FAC520A928C9004CFED7 /* Commont.swift in Sources */,
 				CA84FAB120A9234B004CFED7 /* DecodePose.swift in Sources */,
+				CA304FDC20A9B8CD0073FD62 /* PriorityQueue.swift in Sources */,
 				CA84FAB820A923A6004CFED7 /* Util.swift in Sources */,
 				CA84FAC720A962D2004CFED7 /* UIImage+CVPixelBuffer.swift in Sources */,
 				CA84FAB420A92379004CFED7 /* Types.swift in Sources */,
