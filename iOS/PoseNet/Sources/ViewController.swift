@@ -130,7 +130,11 @@ class ViewController: UIViewController {
         let posnet = PoseNet()
         
         let img = image.pixelBuffer(width: ImageWidth, height: ImageWidth)
+        
+        let startTime = CFAbsoluteTimeGetCurrent()
         let result = try? model.prediction(image__0: img!)
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        print("coreml Time elapsed for roop: \(timeElapsed) seconds")
 
         let names: [String] = ["heatmap__0","offset_2__0","displacement_fwd_2__0","displacement_bwd_2__0"]
         let tensors = names.reduce(into: [String: Tensor]()) {
