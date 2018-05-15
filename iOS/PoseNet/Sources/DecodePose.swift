@@ -86,9 +86,7 @@ extension PoseNet {
             position: rootPoint,
             part: partNames[rootPart.id]
         )
-        
-    //    print(instanceKeypoints.count)
-       
+               
         // Decode the part positions upwards in the tree, following the backward
         // displacements.
         for edge in (0..<numEdges).reversed() {

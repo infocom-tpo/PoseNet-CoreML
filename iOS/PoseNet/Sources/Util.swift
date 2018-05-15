@@ -69,16 +69,16 @@ extension Comparable
     }
 }
 
-//extension UIImage {
-//    func resize(to newSize: CGSize) -> UIImage {
-//        UIGraphicsBeginImageContextWithOptions(CGSize(width: newSize.width, height: newSize.height), true, 1.0)
-//        self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-//        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!
-//        UIGraphicsEndImageContext()
-//
-//        return resizedImage
-//    }
-//}
+extension UIImage {
+    func resize(to newSize: CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: newSize.width, height: newSize.height), true, 1.0)
+        self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        return resizedImage
+    }
+}
 
 extension Array where Iterator.Element == Double {
     public var asArrayOfFloat: [Float] {

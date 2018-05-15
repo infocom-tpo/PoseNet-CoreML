@@ -44,11 +44,7 @@ extension PoseNet {
         
         while (poses.count < maxPoseDetections && !queue.isEmpty) {
             let root = queue.dequeue()
-            //        if (root!.part.heatmapY == 7 && root!.part.heatmapX == 15){
-            //            print(root!.part)
-            //            print("OK")
-            //        }
-            //
+            
             // Use of unresolved identifier 'getImageCoords'
             let rootImageCoords =
                 getImageCoords(part: root!.part,outputStride: outputStride,offsets: offsets)
@@ -58,9 +54,6 @@ extension PoseNet {
             {
                 continue
             }
-            //        print(root!.part)
-            //        print(rootImageCoords)
-            
             // Start a new detection instance at the position of the root.
             let keypoints = decodePose(
                 root!, scores, offsets, outputStride, displacementsFwd,
@@ -69,10 +62,7 @@ extension PoseNet {
             let score = getInstanceScore(poses, squaredNmsRadius, keypoints)
             
             poses.append(Pose(keypoints: keypoints, score: score))
-            //        print(root!.score)
         }
-        //    print(poses.count)
-        //    print(poses)
         return poses
     }
 }

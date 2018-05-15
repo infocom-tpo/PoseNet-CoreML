@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import Vision
 import TensorSwift
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -19,65 +20,88 @@ class ViewController: UIViewController {
 //        let fname = "lifting.png"
 //        let fname = "soccer.png"
 //        let fname = "frisbee.jpg"
+        
+        imageView.frame = UIScreen.main.bounds
+        imageView.contentMode = .scaleAspectFit
+        
         let fname = "tennis_in_crowd.jpg"
-        if let image = UIImage(named: fname){
+        if let image = UIImage(named: fname)?.resize(to:
+            CGSize(width: ImageWidth, height: ImageHeight)){
             imageView.image = image
             let result = measure(runCoreML(image))
-            
             print(result.duration)
             drawResults(result.result)
         }
     }
+    
     func drawResults(_ poses: [Pose]){
         let minPoseConfidence: Float = 0.5
         
+        let screen = UIScreen.main.bounds
+        let scale = screen.width / CGFloat(ImageWidth)
+        
+        let size = AVMakeRect(aspectRatio:
+            CGSize(width: CGFloat(ImageWidth),height: CGFloat(ImageHeight)),
+                               insideRect: imageView.frame)
         poses.forEach { pose in
             if (pose.score >= minPoseConfidence){
-                drawKeypoints(keypoints: pose.keypoints,minConfidence: minPoseConfidence)
-                drawSkeleton(keypoints: pose.keypoints,minConfidence: minPoseConfidence)
+                drawKeypoints(keypoints: pose.keypoints,minConfidence: minPoseConfidence,
+                              size: size.origin, scale: scale)
+                drawSkeleton(keypoints: pose.keypoints,minConfidence: minPoseConfidence,
+                             size: size.origin, scale: scale)
             }
         }
     }
     
-    func drawKeypoints(keypoints: [Keypoint], minConfidence: Float){
+    func drawKeypoints(keypoints: [Keypoint], minConfidence: Float,
+                       size: CGPoint,scale: CGFloat = 1){
+        
         keypoints.forEach { keypoint in
             if (keypoint.score < minConfidence) {
                 return
             }
-            
-            let center = CGPoint(x: Int(keypoint.position.x), y: Int(keypoint.position.y))
+            let center = CGPoint(x: CGFloat(keypoint.position.x) * scale + size.x,
+                                 y: CGFloat(keypoint.position.y) * scale + size.y)
             let line = CAShapeLayer()
-            
+            line.frame = imageView.frame
             let trackPath = UIBezierPath(arcCenter: center,
                                          radius: 3, startAngle: 0,
                                          endAngle: 2.0 * .pi, clockwise: true)
             line.path = trackPath.cgPath
             line.strokeColor = UIColor.green.cgColor
             self.view.layer.addSublayer(line)
+            
         }
     }
 
-    func drawSegment(fromPoint start: CGPoint, toPoint end:CGPoint) {
+    func drawSegment(fromPoint start: CGPoint, toPoint end:CGPoint,
+                     size: CGPoint, scale: CGFloat = 1) {
         let line = CAShapeLayer()
         let linePath = UIBezierPath()
-        linePath.move(to: start)
-        linePath.addLine(to: end)
+        linePath.move(to:
+            CGPoint(x: start.x * scale + size.x, y: start.y * scale + size.y))
+        linePath.addLine(to:
+            CGPoint(x: end.x * scale + size.x, y: end.y * scale + size.y))
         line.path = linePath.cgPath
         line.strokeColor = UIColor.red.cgColor
         line.lineWidth = 3
         line.lineJoin = kCALineJoinRound
         self.view.layer.addSublayer(line)
     }
-    func drawSkeleton(keypoints: [Keypoint], minConfidence: Float){
+    func drawSkeleton(keypoints: [Keypoint], minConfidence: Float,
+                      size: CGPoint, scale: CGFloat = 1){
         let adjacentKeyPoints = getAdjacentKeyPoints(
             keypoints: keypoints, minConfidence: minConfidence);
         
         adjacentKeyPoints.forEach { keypoint in
             drawSegment(
                 fromPoint:
-                    CGPoint(x: Int(keypoint[0].position.x),y: Int(keypoint[0].position.y)),
+                    CGPoint(x: CGFloat(keypoint[0].position.x),y: CGFloat(keypoint[0].position.y)),
                 toPoint:
-                    CGPoint(x: Int(keypoint[1].position.x),y: Int(keypoint[1].position.y))
+                    CGPoint(x: CGFloat(keypoint[1].position.x),y: CGFloat(keypoint[1].position.y)),
+                size: size,
+                scale: scale
+                
             )
         }
     }
@@ -129,11 +153,10 @@ class ViewController: UIViewController {
 //
     func runCoreML(_ image: UIImage) -> [Pose]{
         let posnet = PoseNet()
-        
-        let img = image.pixelBuffer(width: ImageWidth, height: ImageWidth)
+        let img = image.pixelBuffer(width: ImageWidth, height: ImageWidth)!
         
         let startTime = CFAbsoluteTimeGetCurrent()
-        let result = try? model.prediction(image__0: img!)
+        let result = try? model.prediction(image__0: img)
         let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
         print("coreml Time elapsed for roop: \(timeElapsed) seconds")
 
