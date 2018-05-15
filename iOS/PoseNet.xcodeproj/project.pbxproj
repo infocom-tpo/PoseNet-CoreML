@@ -30,6 +30,7 @@
 		CA84FACD20A9776A004CFED7 /* displacementsFwd.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA84FAC920A9776A004CFED7 /* displacementsFwd.bin */; };
 		CA84FACE20A9776A004CFED7 /* displacementsBwd.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA84FACA20A9776A004CFED7 /* displacementsBwd.bin */; };
 		CA84FACF20A9776A004CFED7 /* heatmapScores.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA84FACB20A9776A004CFED7 /* heatmapScores.bin */; };
+		CAD8E52B20AABD97006F8275 /* lifting.png in Resources */ = {isa = PBXBuildFile; fileRef = CAD8E52A20AABD97006F8275 /* lifting.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +66,7 @@
 		CA84FAA320A921DE004CFED7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CA84FAA520A921DE004CFED7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA84FAAB20A92219004CFED7 /* tennis_in_crowd.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tennis_in_crowd.jpg; sourceTree = "<group>"; };
-		CA84FAAE20A9227A004CFED7 /* posenet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = posenet.mlmodel; path = ../../../models/posenet.mlmodel; sourceTree = "<group>"; };
+		CA84FAAE20A9227A004CFED7 /* posenet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = posenet.mlmodel; sourceTree = "<group>"; };
 		CA84FAB020A9234B004CFED7 /* DecodePose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodePose.swift; sourceTree = "<group>"; };
 		CA84FAB320A92378004CFED7 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		CA84FAB520A9237F004CFED7 /* BuildPartWithScoreQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildPartWithScoreQueue.swift; sourceTree = "<group>"; };
@@ -78,6 +79,7 @@
 		CA84FAC920A9776A004CFED7 /* displacementsFwd.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = displacementsFwd.bin; sourceTree = "<group>"; };
 		CA84FACA20A9776A004CFED7 /* displacementsBwd.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = displacementsBwd.bin; sourceTree = "<group>"; };
 		CA84FACB20A9776A004CFED7 /* heatmapScores.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = heatmapScores.bin; sourceTree = "<group>"; };
+		CAD8E52A20AABD97006F8275 /* lifting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lifting.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				CA84FAC920A9776A004CFED7 /* displacementsFwd.bin */,
 				CA84FACB20A9776A004CFED7 /* heatmapScores.bin */,
 				CA84FAC820A9776A004CFED7 /* offsets.bin */,
+				CAD8E52A20AABD97006F8275 /* lifting.png */,
 				CA84FAAB20A92219004CFED7 /* tennis_in_crowd.jpg */,
 				CA84FAAE20A9227A004CFED7 /* posenet.mlmodel */,
 			);
@@ -278,6 +281,7 @@
 				CA84FACE20A9776A004CFED7 /* displacementsBwd.bin in Resources */,
 				CA2C781820AAA5DF007B0256 /* frisbee.jpg in Resources */,
 				CA84FACC20A9776A004CFED7 /* offsets.bin in Resources */,
+				CAD8E52B20AABD97006F8275 /* lifting.png in Resources */,
 				CA84FACD20A9776A004CFED7 /* displacementsFwd.bin in Resources */,
 				CA84FAA120A921DE004CFED7 /* Assets.xcassets in Resources */,
 				CA5A875220AAA6B3004E51F6 /* soccer.png in Resources */,

@@ -16,9 +16,10 @@ class ViewController: UIViewController {
         
 //        let poses = runOffline()
 //        drawResults(poses)
-        let fname = "soccer.png"
+//        let fname = "lifting.png"
+//        let fname = "soccer.png"
 //        let fname = "frisbee.jpg"
-//        let fname = "tennis_in_crowd.jpg"
+        let fname = "tennis_in_crowd.jpg"
         if let image = UIImage(named: fname){
             imageView.image = image
             let result = measure(runCoreML(image))
