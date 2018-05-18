@@ -107,52 +107,49 @@ class ViewController: UIViewController {
     
     func drawResults(_ poses: [Pose]){
         
+        let minPoseConfidence: Float = 0.5
         
-            
-            let minPoseConfidence: Float = 0.5
-            
-            let screen = UIScreen.main.bounds
-            let scale = screen.width / self.targetImageSize.width
-            let size = AVMakeRect(aspectRatio: self.targetImageSize,
-                                  insideRect: self.previewView.frame)
-            
-            var linePath = UIBezierPath()
-            var arcPath = UIBezierPath()
-            poses.forEach { pose in
-                if (pose.score >= minPoseConfidence){
-                    self.drawKeypoints(arcPath: &arcPath, keypoints: pose.keypoints,minConfidence: minPoseConfidence,
-                                       size: size.origin, scale: scale)
-                    self.drawSkeleton(linePath: &linePath, keypoints: pose.keypoints,
-                                      minConfidence: minPoseConfidence,
-                                      size: size.origin, scale: scale)
-                }
+        let screen = UIScreen.main.bounds
+        let scale = screen.width / self.targetImageSize.width
+        let size = AVMakeRect(aspectRatio: self.targetImageSize,
+                              insideRect: self.previewView.frame)
+        
+        var linePath = UIBezierPath()
+        var arcPath = UIBezierPath()
+        poses.forEach { pose in
+            if (pose.score >= minPoseConfidence){
+                self.drawKeypoints(arcPath: &arcPath, keypoints: pose.keypoints,minConfidence: minPoseConfidence,
+                                   size: size.origin, scale: scale)
+                self.drawSkeleton(linePath: &linePath, keypoints: pose.keypoints,
+                                  minConfidence: minPoseConfidence,
+                                  size: size.origin, scale: scale)
             }
-            
-            // Draw
-            let arcLine = CAShapeLayer()
-            arcLine.path = arcPath.cgPath
-            arcLine.strokeColor = UIColor.green.cgColor
-            
-            let line = CAShapeLayer()
-            line.path = linePath.cgPath
-            line.strokeColor = UIColor.red.cgColor
-            line.lineWidth = 2
-            line.lineJoin = kCALineJoinRound
-            
-            self.lineView.layer.sublayers = nil
-            self.lineView.layer.addSublayer(arcLine)
-            self.lineView.layer.addSublayer(line)
-            linePath.removeAllPoints()
-            arcPath.removeAllPoints()
-            semaphore.wait()
-            isWriting = false
-            semaphore.signal()
+        }
+        
+        // Draw
+        let arcLine = CAShapeLayer()
+        arcLine.path = arcPath.cgPath
+        arcLine.strokeColor = UIColor.green.cgColor
+        
+        let line = CAShapeLayer()
+        line.path = linePath.cgPath
+        line.strokeColor = UIColor.red.cgColor
+        line.lineWidth = 2
+        line.lineJoin = kCALineJoinRound
+        
+        self.lineView.layer.sublayers = nil
+        self.lineView.layer.addSublayer(arcLine)
+        self.lineView.layer.addSublayer(line)
+        linePath.removeAllPoints()
+        arcPath.removeAllPoints()
+        semaphore.wait()
+        isWriting = false
+        semaphore.signal()
         
     }
     
     func drawKeypoints(arcPath: inout UIBezierPath, keypoints: [Keypoint], minConfidence: Float,
                        size: CGPoint,scale: CGFloat = 1){
-        
         
         keypoints.forEach { keypoint in
             if (keypoint.score < minConfidence) {
