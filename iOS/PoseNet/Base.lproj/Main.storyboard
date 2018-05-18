@@ -22,16 +22,22 @@
                                 <rect key="frame" x="0.0" y="0.0" width="513" height="513"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vM1-Xf-bc7">
+                                <rect key="frame" x="0.0" y="0.0" width="513" height="513"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="Ucs-bf-GjS" id="9hY-AQ-R4R"/>
+                        <outlet property="lineView" destination="vM1-Xf-bc7" id="MDa-yT-af7"/>
+                        <outlet property="previewView" destination="Ucs-bf-GjS" id="V2L-KJ-z3U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="141.59999999999999" y="-42.728635682158924"/>
         </scene>
     </scenes>
 </document>

@@ -1,6 +1,6 @@
 import TensorSwift
 
-extension PoseNet {
+class PoseNet {
     
     func withinNmsRadiusOfCorrespondingPoint(
         poses: [Pose], squaredNmsRadius: Float, vec: Vector2D, keypointId: Int) -> Bool {
@@ -12,11 +12,11 @@ extension PoseNet {
             return squaredDistance(y1: y, x1: x, y2: correspondingKeypoint.y, x2: correspondingKeypoint.x) <= squaredNmsRadius
         }
     }
-
+    
     func getInstanceScore(
         _ existingPoses: [Pose],_ squaredNmsRadius: Float,
         _ instanceKeypoints: [Keypoint]) -> Float {
-
+        
         var notOverlappedKeypointScores : Float = 0.0
         for (keypointId, p) in instanceKeypoints.enumerated() {
             if (!withinNmsRadiusOfCorrespondingPoint(
@@ -66,5 +66,3 @@ extension PoseNet {
         return poses
     }
 }
-
-
