@@ -4,6 +4,7 @@
 import urllib.request
 import sys
 import json
+import os
 
 def download(filename):
 
@@ -15,6 +16,10 @@ if __name__ == "__main__":
 
     f = open('manifest.json', 'r')
     json_dict = json.load(f)
+
+    save_dir = './waits'
+    if not os.path.exists(save_dir):
+        os.mkdir(save_dir)
 
     for x in json_dict:
         filename = json_dict[x]['filename']
