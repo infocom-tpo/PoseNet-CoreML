@@ -5,7 +5,7 @@ import TensorSwift
 import AVFoundation
 
 let posnet = PoseNet()
-var isXcode : Bool = false // true: localfile , false: device camera
+var isXcode : Bool = true // true: localfile , false: device camera
 
 // controlling the pace of the machine vision analysis
 var lastAnalysis: TimeInterval = 0
