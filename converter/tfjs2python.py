@@ -5,6 +5,10 @@ import cv2
 import numpy as np
 import os
 
+imageSize = 337
+width = imageSize
+height = imageSize
+
 mobileNetArchitectures = [
     ['conv2d', 2],
     ['separableConv', 1],
@@ -39,6 +43,7 @@ for x in variables:
 
 def read_imgfile(path, width, height):
     img = cv2.imread(path)
+    img = cv2.resize(img, (width,height))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img = img.astype(float)
     img = img * (2.0 / 255.0) - 1.0
@@ -85,7 +90,7 @@ def separableConv(inputs, stride, blockID, dilations):
     return w
 
 
-image = tf.placeholder(tf.float32, shape=[1, 513, 513, 3],name='image')
+image = tf.placeholder(tf.float32, shape=[1, imageSize, imageSize, 3],name='image')
 
 count = 0
 x = image
@@ -122,7 +127,7 @@ with tf.Session() as sess:
     saver = tf.train.Saver()
 
     ans = sess.run([heatmaps,offsets,displacementFwd,displacementBwd], feed_dict={
-            image: [np.ndarray(shape=(513, 513, 3),dtype=np.float32)]
+            image: [np.ndarray(shape=(width, height, 3),dtype=np.float32)]
         }
     )
 
@@ -135,9 +140,9 @@ with tf.Session() as sess:
     tf.train.write_graph(sess.graph,"./models/","model.pbtxt")
 
     # Result
-    input_image = read_imgfile("./images/tennis_in_crowd.jpg",None,None)
+    input_image = read_imgfile("./images/tennis_in_crowd.jpg",width,height)
     input_image = np.array(input_image,dtype=np.float32)
-    input_image = input_image.reshape(1,513,513,3)
+    input_image = input_image.reshape(1,width,height,3)
     mobileNetOutput = sess.run(x, feed_dict={ image: input_image } )
 
     heatmaps_result,offsets_result,displacementFwd_result,displacementBwd_result = sess.run(

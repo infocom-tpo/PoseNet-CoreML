@@ -6,6 +6,8 @@ from keras.preprocessing.image import load_img
 import tfcoreml
 import coremltools
 
+imageSize = 337
+
 # Provide these to run freeze_graph:
 # Graph definition file, stored as protobuf TEXT
 graph_def_file = './models/model.pbtxt'
@@ -29,7 +31,7 @@ freeze_graph(input_graph=graph_def_file,
              clear_devices=True,
              initializer_nodes="")
 
-input_tensor_shapes = {"image:0":[1,513, 513, 3]} 
+input_tensor_shapes = {"image:0":[1,imageSize, imageSize, 3]} 
 coreml_model_file = './models/model.mlmodel'
 # output_tensor_names = ['output:0']
 output_tensor_names = ['heatmap:0','offset_2:0','displacement_fwd_2:0','displacement_bwd_2:0']
@@ -51,9 +53,9 @@ coreml_model.author = 'Infocom TPO'
 coreml_model.license = 'MIT'
 coreml_model.short_description = 'Ver.0.0.1'
 
-coreml_model.save('./models/posenet.mlmodel')
+coreml_model.save('./models/posenet'+ str(imageSize) +'.mlmodel')
 
-img = load_img("./images/tennis_in_crowd.jpg", target_size=(513, 513))
+img = load_img("./images/tennis_in_crowd.jpg", target_size=(imageSize, imageSize))
 print(img)
 out = coreml_model.predict({'image__0': img})['heatmap__0']
 print("#output coreml result.")

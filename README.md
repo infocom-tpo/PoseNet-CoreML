@@ -20,11 +20,23 @@ $ pod install
 ```
 
 ## Performance
+
 ```
-coreml Time elapsed for roop: 0.160135984420776 seconds
-// All processing other than drawing
-Elapsed time is 0.175379037857056 seconds.
+// size 513 
+0.13 - 0.18 seconds.
+
+// size 337
+0.06 - 0.12 seconds.
+
+// size 257
+0.06 - 0.09 seconds.
 ```
+
+Setting Optimization Level  
+Edit Scheme -> Build Configuration -> Selected Release  
+
+<img src="converter/images/build_configuration.png" width="300" />
+<img src="converter/images/opt_release.png" width="300" />
 
 ## Dependencies
 

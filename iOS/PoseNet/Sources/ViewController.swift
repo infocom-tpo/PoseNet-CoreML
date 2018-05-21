@@ -5,11 +5,11 @@ import TensorSwift
 import AVFoundation
 
 let posnet = PoseNet()
-var isXcode : Bool = true // true: localfile , false: device camera
+var isXcode : Bool = false // true: localfile , false: device camera
 
 // controlling the pace of the machine vision analysis
 var lastAnalysis: TimeInterval = 0
-var pace: TimeInterval = 0.33 // in seconds, classification will not repeat faster than this value
+var pace: TimeInterval = 0.08 // in seconds, classification will not repeat faster than this value
 // performance tracking
 let trackPerformance = false // use "true" for performance logging
 var frameCount = 0
@@ -22,8 +22,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var previewView: UIImageView!
     @IBOutlet weak var lineView: UIImageView!
     
-    let model = posenet()
-    let targetImageSize = CGSize(width: 513, height: 513)
+    let model = posenet337()
+    let targetImageSize = CGSize(width: 337, height: 337)
     var previewLayer: AVCaptureVideoPreviewLayer!
     
     let videoQueue = DispatchQueue(label: "videoQueue")
@@ -283,6 +283,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             if (self.isWriting == false) {
                 self.isWriting = true
                 semaphore.signal()
+                let startTime = CFAbsoluteTimeGetCurrent()
                 guard let croppedBuffer = croppedSampleBuffer(sampleBuffer, targetSize: self.targetImageSize) else {
                     return
                 }
@@ -290,6 +291,8 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                 DispatchQueue.main.sync {
                     self.drawResults(poses)
                 }
+                let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+                print ("Elapsed time is \(timeElapsed) seconds.")
             } else {
                 semaphore.signal()
             }
