@@ -35,8 +35,8 @@ $ pod install
 Setting Optimization Level  
 Edit Scheme -> Build Configuration -> Selected Release  
 
-<img src="converter/images/build_configuration.png" width="300" />
-<img src="converter/images/opt_release.png" width="300" />
+<img src="converter/images/build_configuration.png" width="500" />
+<img src="converter/images/opt_release.png" width="700" />
 
 ## Dependencies
 
