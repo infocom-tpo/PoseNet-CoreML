@@ -200,17 +200,14 @@ class ViewController: UIViewController {
     func getAdjacentKeyPoints(
         keypoints: [Keypoint], minConfidence: Float)-> [[Keypoint]] {
         
-        return connectedPartIndeces.reduce([[Keypoint]](), { res , joint in
-            var arr = res
-            if (eitherPointDoesntMeetConfidence(
-                keypoints[joint.0].score,
-                keypoints[joint.1].score,
+        return connectedPartIndeces.reduce(into: [[Keypoint]]()) {
+            if (!eitherPointDoesntMeetConfidence(
+                keypoints[$1.0].score,
+                keypoints[$1.1].score,
                 minConfidence)){
-                return res
+                $0.append([keypoints[$1.0],keypoints[$1.1]])
             }
-            arr.append([keypoints[joint.0],keypoints[joint.1]])
-            return arr
-        })
+        }
     }
     
     func runCoreML(_ img: CVPixelBuffer) -> [Pose]{
