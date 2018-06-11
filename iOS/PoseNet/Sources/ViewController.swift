@@ -214,8 +214,7 @@ class ViewController: UIViewController {
         
         let result = try? model.prediction(image__0: img)
         
-        let names: [String] = ["heatmap__0","offset_2__0","displacement_fwd_2__0","displacement_bwd_2__0"]
-        let tensors = names.reduce(into: [String: Tensor]()) {
+        let tensors = result?.featureNames.reduce(into: [String: Tensor]()) {
             $0[$1] = getTensor(
                 result?.featureValue(for: $1)?.multiArrayValue)
         }
@@ -226,12 +225,12 @@ class ViewController: UIViewController {
         //        let doubleBuffer = UnsafeBufferPointer(start: doublePtr, count: length)
         //        let buffer = Array(doubleBuffer)
         //        let sum = buffer.reduce(0, +) / (17 * 33 * 33)
-        //        print(sum)
+        //        print(sum)!
         let poses = posnet.decodeMultiplePoses(
-            scores: tensors["heatmap__0"]!,
-            offsets: tensors["offset_2__0"]!,
-            displacementsFwd: tensors["displacement_fwd_2__0"]!,
-            displacementsBwd: tensors["displacement_bwd_2__0"]!,
+            scores: tensors!["heatmap__0"]!,
+            offsets: tensors!["offset_2__0"]!,
+            displacementsFwd: tensors!["displacement_fwd_2__0"]!,
+            displacementsBwd: tensors!["displacement_bwd_2__0"]!,
             outputStride: 16, maxPoseDetections: 15,
             scoreThreshold: 0.5,nmsRadius: 20)
         
