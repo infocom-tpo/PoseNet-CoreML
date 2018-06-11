@@ -8,7 +8,6 @@ class PoseNet {
         let x = vec.x, y = vec.y
         return poses.contains { pose in
             let correspondingKeypoint = pose.keypoints[keypointId].position
-            // Binary operator '<=' cannot be applied to operands of type 'Float' (aka 'Float') and 'Int'
             return squaredDistance(y1: y, x1: x, y2: correspondingKeypoint.y, x2: correspondingKeypoint.x) <= squaredNmsRadius
         }
     }
@@ -17,19 +16,18 @@ class PoseNet {
         _ existingPoses: [Pose],_ squaredNmsRadius: Float,
         _ instanceKeypoints: [Keypoint]) -> Float {
         
-        var notOverlappedKeypointScores : Float = 0.0
-        for (keypointId, p) in instanceKeypoints.enumerated() {
-            if (!withinNmsRadiusOfCorrespondingPoint(
-                poses: existingPoses,
-                squaredNmsRadius: squaredNmsRadius,
-                vec: p.position,
-                keypointId: keypointId))
-            {
-                notOverlappedKeypointScores += Float(p.score)
-            }
-        }
+        let notOverlappedKeypointScores =
+            instanceKeypoints.enumerated().filter {
+                !withinNmsRadiusOfCorrespondingPoint(
+                    poses: existingPoses,
+                    squaredNmsRadius: squaredNmsRadius,
+                    vec: $0.element.position,
+                    keypointId: $0.offset)
+                }.reduce(0.0){ $0 + $1.element.score }
+        
         return Float(notOverlappedKeypointScores / Float(instanceKeypoints.count))
     }
+    
     func decodeMultiplePoses(
         scores: Tensor, offsets: Tensor,
         displacementsFwd: Tensor, displacementsBwd: Tensor,
