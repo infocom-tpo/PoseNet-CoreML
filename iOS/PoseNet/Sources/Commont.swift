@@ -19,7 +19,7 @@ let connectedPartNames = [
     ("leftShoulder", "rightShoulder"), ("leftHip", "rightHip")
 ]
 
-let connectedPartIndeces = connectedPartNames.map {
+let connectedPartIndices = connectedPartNames.map {
     (partIds[$0.0]!,  partIds[$0.1]!)
 }
 

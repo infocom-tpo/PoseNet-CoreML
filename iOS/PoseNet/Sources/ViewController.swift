@@ -200,7 +200,7 @@ class ViewController: UIViewController {
     func getAdjacentKeyPoints(
         keypoints: [Keypoint], minConfidence: Float)-> [[Keypoint]] {
         
-        return connectedPartIndeces.filter {
+        return connectedPartIndices.filter {
             !eitherPointDoesntMeetConfidence(
                 keypoints[$0.0].score,
                 keypoints[$0.1].score,

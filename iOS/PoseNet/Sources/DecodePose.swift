@@ -2,15 +2,15 @@ import TensorSwift
 
 extension PoseNet {
 
-    func getDisplacement(_ i: Int,_ point: Vector2DInt,_ displacements: Tensor) -> Vector2D {
+    func getDisplacement(_ edgeId: Int,_ point: Vector2DInt,_ displacements: Tensor) -> Vector2D {
         let numEdges = Int(displacements.shape.dimensions[0].value / 2)
         return Vector2D(
-            x: displacements[numEdges + i, point.y, point.x],
-            y: displacements[i, point.y, point.x]
+            x: displacements[numEdges + edgeId, point.y, point.x],
+            y: displacements[edgeId, point.y, point.x]
         )
     }
 
-    func decode(
+    func getStridedIndexNearPoint(
         _ point: Vector2D,_  outputStride: Int,_ height: Int,
         _ width: Int) -> Vector2DInt {
         
@@ -30,32 +30,33 @@ extension PoseNet {
         _ edgeId: Int, _ sourceKeypoint: Keypoint,_ targetKeypointId: Int,
         _ scoresBuffer: Tensor,_ offsets: Tensor,_ outputStride: Int,
         _ displacements: Tensor) -> Keypoint {
+
         let height = scoresBuffer.shape.dimensions[2].value
         let width = scoresBuffer.shape.dimensions[1].value
-        
+
         // Nearest neighbor interpolation for the source->target displacements.
-        let sourceKeypointIndeces =
-            decode(sourceKeypoint.position, outputStride, height, width)
+        let sourceKeypointIndices = getStridedIndexNearPoint(
+            sourceKeypoint.position, outputStride, height, width)
         
         let displacement =
-            getDisplacement(edgeId, sourceKeypointIndeces, displacements)
+            getDisplacement(edgeId, sourceKeypointIndices, displacements)
         
         let displacedPoint = addVectors(sourceKeypoint.position, displacement)
         
-        let displacedPointIndeces =
-            decode(displacedPoint, outputStride, height, width)
+        let displacedPointIndices =
+            getStridedIndexNearPoint(displacedPoint, outputStride, height, width)
         
         let offsetPoint = getOffsetPoint(
-            y: displacedPointIndeces.y,x: displacedPointIndeces.x,
+            y: displacedPointIndices.y, x: displacedPointIndices.x,
             keypoint: targetKeypointId, offsets: offsets)
         
+        let score = scoresBuffer[targetKeypointId, displacedPointIndices.y, displacedPointIndices.x]
+        
         let targetKeypoint =
-            addVectors(displacedPoint, Vector2D(x: offsetPoint.x, y: offsetPoint.y))
-        
-        let targetKeypointIndeces =
-            decode(targetKeypoint, outputStride, height, width)
-        
-        let score = scoresBuffer[targetKeypointId, targetKeypointIndeces.y, targetKeypointIndeces.x]
+                addVectors(
+                    Vector2D(x: Float(displacedPointIndices.x * outputStride),
+                             y: Float(displacedPointIndices.y * outputStride)),
+                    Vector2D(x: offsetPoint.x, y: offsetPoint.y))
         
         return Keypoint(score: score, position: targetKeypoint, part: partNames[targetKeypointId])
     }
@@ -112,7 +113,6 @@ extension PoseNet {
                     offsets, outputStride, displacementsFwd)
             }
         }
-
         return instanceKeypoints
     }
 }
