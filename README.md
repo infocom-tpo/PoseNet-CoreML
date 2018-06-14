@@ -21,6 +21,8 @@ $ pod install
 
 ## Performance
 
+Test Device: iPhone7
+
 ```
 // size 513 
 0.13 - 0.18 seconds.
@@ -43,6 +45,10 @@ Edit Scheme -> Build Configuration -> Selected Release
 * [raywenderlich/swift-algorithm-club](https://github.com/raywenderlich/swift-algorithm-club)
 * [hollance/CoreMLHelpers](https://github.com/hollance/CoreMLHelpers)
 * [qoncept/TensorSwift](https://github.com/qoncept/TensorSwift)
+
+# Blogs
+
+* [PoseNetをマルチプラットフォームで実装してみた](https://qiita.com/otmb/items/561a62d3413295cc744e)
 
 ## Development By Infocom TPO
 
