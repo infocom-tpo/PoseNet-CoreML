@@ -4,7 +4,7 @@ import Vision
 import TensorSwift
 import AVFoundation
 
-let posnet = PoseNet()
+let posenet = PoseNet()
 var isXcode : Bool = true // true: localfile , false: device camera
 
 // controlling the pace of the machine vision analysis
@@ -45,11 +45,14 @@ class ViewController: UIViewController {
                 previewView.image = image
                 let result = measure(
                     runCoreML(
-                        image.pixelBuffer(width: Int(targetImageSize.width), height: Int(image.size.height))!
+                        image.pixelBuffer(width: Int(targetImageSize.width),
+                                          height: Int(targetImageSize.height))!
                     )
                 )
                 print(result.duration)
                 drawResults(result.result)
+                //let result = runOffline()
+                //drawResults(result)
             }
         } else {
             previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -208,6 +211,27 @@ class ViewController: UIViewController {
             }.map { [keypoints[$0.0],keypoints[$0.1]] }
     }
     
+    func runOffline() -> [Pose]{
+        
+        let scores = getTensorTranspose("heatmapScores",[33, 33, 17])
+        let offsets = getTensorTranspose("offsets",[33, 33, 34])
+        let displacementsFwd = getTensorTranspose("displacementsFwd",[33, 33, 32])
+        let displacementsBwd = getTensorTranspose("displacementsBwd",[33, 33, 32])
+        
+        let sum = scores.reduce(0, +) / (17 * 33 * 33)
+        print(sum)
+        
+        let poses = posenet.decodeMultiplePoses(
+            scores: scores,
+            offsets: offsets,
+            displacementsFwd: displacementsFwd,
+            displacementsBwd: displacementsBwd,
+            outputStride: 16, maxPoseDetections: 5,
+            scoreThreshold: 0.5,nmsRadius: 20)
+        
+        return poses
+    }
+    
     func runCoreML(_ img: CVPixelBuffer) -> [Pose]{
         
         let result = try? model.prediction(image__0: img)
@@ -216,15 +240,10 @@ class ViewController: UIViewController {
             $0[$1] = getTensor(
                 result?.featureValue(for: $1)?.multiArrayValue)
         }
-        //        let mlarray = result?.featureValue(for: "heatmap__0")?.multiArrayValue
-        //
-        //        let length = mlarray!.count
-        //        let doublePtr =  mlarray!.dataPointer.bindMemory(to: Double.self, capacity: length)
-        //        let doubleBuffer = UnsafeBufferPointer(start: doublePtr, count: length)
-        //        let buffer = Array(doubleBuffer)
-        //        let sum = buffer.reduce(0, +) / (17 * 33 * 33)
-        //        print(sum)!
-        let poses = posnet.decodeMultiplePoses(
+        let sum = tensors!["heatmap__0"]!.reduce(0, +) / (17 * 33 * 33)
+        print(sum)
+        
+        let poses = posenet.decodeMultiplePoses(
             scores: tensors!["heatmap__0"]!,
             offsets: tensors!["offset_2__0"]!,
             displacementsFwd: tensors!["displacement_fwd_2__0"]!,

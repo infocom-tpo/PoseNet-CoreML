@@ -112,3 +112,23 @@ func getTensor(_ name: String,_ shape: Shape) -> Tensor {
     }
     return Tensor(shape: shape, elements: values)
 }
+
+func getTensorTranspose(_ name: String,_ shape: Shape) -> Tensor {
+    let tensor = getTensor(name, shape)
+    let height = tensor.shape.dimensions[0]
+    let width = tensor.shape.dimensions[1]
+    let keypoint = tensor.shape.dimensions[2]
+    
+    var i = 0
+    var m = [Float](repeating: 0.0, count: height.value*width.value*keypoint.value)
+    for k in 0..<keypoint.value {
+        for h in 0..<height.value {
+            for w in 0..<width.value {
+                m[i] = tensor[h,w,k]
+                i = i + 1
+            }
+        }
+    }
+    
+    return Tensor(shape: [keypoint,height,width], elements: m)
+}
