@@ -22,8 +22,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var previewView: UIImageView!
     @IBOutlet weak var lineView: UIImageView!
     
-    let model = posenet337()
-    let targetImageSize = CGSize(width: 337, height: 337)
+    let model = posenet513_v1_075()
+    let targetImageSize = CGSize(width: 513, height: 513)
     var previewLayer: AVCaptureVideoPreviewLayer!
     
     let videoQueue = DispatchQueue(label: "videoQueue")

@@ -4,36 +4,66 @@ import tensorflow as tf
 import cv2
 import numpy as np
 import os
+import yaml
+import sys
 
-imageSize = 337
+f = open("config.yaml", "r+")
+cfg = yaml.load(f)
+checkpoints = cfg['checkpoints']
+imageSize = cfg['imageSize']
+chk = cfg['chk']
+outputStride = cfg['outputStride']
+chkpoint = checkpoints[chk]
+
+if chkpoint == 'mobilenet_v1_050':
+    mobileNetArchitectures = cfg['mobileNet50Architecture']
+elif chkpoint == 'mobilenet_v1_075':
+    mobileNetArchitectures = cfg['mobileNet75Architecture']
+else:
+    mobileNetArchitectures = cfg['mobileNet100Architecture']
+
 width = imageSize
 height = imageSize
 
-mobileNetArchitectures = [
-    ['conv2d', 2],
-    ['separableConv', 1],
-    ['separableConv', 2],
-    ['separableConv', 1],
-    ['separableConv', 2],
-    ['separableConv', 1],
-    ['separableConv', 2],
-    ['separableConv', 1],
-    ['separableConv', 1],
-    ['separableConv', 1],
-    ['separableConv', 1],
-    ['separableConv', 1],
-    ['separableConv', 1],
-    ['separableConv', 1]
-]
+def toOutputStridedLayers(convolutionDefinition, outputStride):
+    currentStride = 1
+    rate = 1
+    blockId = 0
+    buff = []
+    for _a in convolutionDefinition:
+        convType = _a[0]
+        stride = _a[1]
+        
+        if (currentStride == outputStride):
+            layerStride = 1
+            layerRate = rate
+            rate *= stride
+        else:
+            layerStride = stride
+            layerRate = 1
+            currentStride *= stride
+        
+        buff.append({
+            'blockId': blockId,
+            'convType': convType,
+            'stride': layerStride,
+            'rate': layerRate,
+            'outputStride': currentStride
+        })
+        blockId += 1
 
-f = open("manifest.json")
+    return buff
+
+layers = toOutputStridedLayers(mobileNetArchitectures, outputStride)
+
+f = open(os.path.join('./waits/', chkpoint, "manifest.json"))
 variables = json.load(f)
 f.close()
 
 # with tf.variable_scope(None, 'MobilenetV1'):
 for x in variables:
     filename = variables[x]["filename"]
-    byte = open('./waits/'+filename,'rb').read()
+    byte = open( os.path.join('./waits/', chkpoint, filename),'rb').read()
     fmt = str (int (len(byte) / struct.calcsize('f'))) + 'f'
     d = struct.unpack(fmt, byte) 
     # d = np.array(d,dtype=np.float32)
@@ -92,24 +122,21 @@ def separableConv(inputs, stride, blockID, dilations):
 
 image = tf.placeholder(tf.float32, shape=[1, imageSize, imageSize, 3],name='image')
 
-count = 0
 x = image
 rate = [1,1]
 buff = []
 # conv_res = {}
 with tf.variable_scope(None, 'MobilenetV1'):
     
-    for m in mobileNetArchitectures:
-        strinde = [1,m[1],m[1],1]
-        if (m[0] == "conv2d"):
-            x = conv(x,strinde,count)
+    for m in layers:
+        strinde = [1,m['stride'],m['stride'],1]
+        rate = [m['rate'],m['rate']]
+        if (m['convType'] == "conv2d"):
+            x = conv(x,strinde,m['blockId'])
             buff.append(x)
-        elif (m[0] == "separableConv"):
-            if count == 13:
-                rate = [2,2]
-            x = separableConv(x,strinde,count,rate)
+        elif (m['convType'] == "separableConv"):
+            x = separableConv(x,strinde,m['blockId'],rate)
             buff.append(x)
-        count += 1
 
 # x = tf.identity(x, name="output")
 

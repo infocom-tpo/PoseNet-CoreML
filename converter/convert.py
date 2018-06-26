@@ -5,8 +5,15 @@ from keras.preprocessing.image import load_img
 
 import tfcoreml
 import coremltools
+import yaml
 
-imageSize = 337
+f = open("config.yaml", "r+")
+cfg = yaml.load(f)
+imageSize = cfg['imageSize']
+checkpoints = cfg['checkpoints']
+chk = cfg['chk']
+chkpoint = checkpoints[chk]
+versionName = chkpoint.lstrip('mobilenet_')
 
 # Provide these to run freeze_graph:
 # Graph definition file, stored as protobuf TEXT
@@ -53,7 +60,7 @@ coreml_model.author = 'Infocom TPO'
 coreml_model.license = 'MIT'
 coreml_model.short_description = 'Ver.0.0.1'
 
-coreml_model.save('./models/posenet'+ str(imageSize) +'.mlmodel')
+coreml_model.save('./models/posenet'+ str(imageSize) + '_' + versionName +'.mlmodel')
 
 img = load_img("./images/tennis_in_crowd.jpg", target_size=(imageSize, imageSize))
 print(img)

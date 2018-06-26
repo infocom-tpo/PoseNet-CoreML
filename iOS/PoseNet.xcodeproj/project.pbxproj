@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0092AA6B20E2A07400A1F578 /* posenet513_v1_075.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0092AA6A20E2A07400A1F578 /* posenet513_v1_075.mlmodel */; };
+		0092AA6D20E2A0ED00A1F578 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092AA6C20E2A0ED00A1F578 /* ViewController.swift */; };
 		7952B60F94DEFCF4708C849F /* Pods_PoseNet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B16AA2085F01B31FD19AE2 /* Pods_PoseNet.framework */; };
 		CA2C781820AAA5DF007B0256 /* frisbee.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CA2C781720AAA5DF007B0256 /* frisbee.jpg */; };
 		CA2D039B20B2642400E79822 /* posenet257.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CA2D039920B2642400E79822 /* posenet257.mlmodel */; };
@@ -16,7 +18,6 @@
 		CA304FE020A9B99A0073FD62 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA304FDF20A9B99A0073FD62 /* Heap.swift */; };
 		CA5A875220AAA6B3004E51F6 /* soccer.png in Resources */ = {isa = PBXBuildFile; fileRef = CA5A874F20AAA6B3004E51F6 /* soccer.png */; };
 		CA84FA9A20A921DB004CFED7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FA9920A921DB004CFED7 /* AppDelegate.swift */; };
-		CA84FA9C20A921DB004CFED7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA84FA9B20A921DB004CFED7 /* ViewController.swift */; };
 		CA84FA9F20A921DB004CFED7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA84FA9D20A921DB004CFED7 /* Main.storyboard */; };
 		CA84FAA120A921DE004CFED7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA84FAA020A921DE004CFED7 /* Assets.xcassets */; };
 		CA84FAA420A921DE004CFED7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA84FAA220A921DE004CFED7 /* LaunchScreen.storyboard */; };
@@ -53,6 +54,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0092AA6A20E2A07400A1F578 /* posenet513_v1_075.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = posenet513_v1_075.mlmodel; sourceTree = "<group>"; };
+		0092AA6C20E2A0ED00A1F578 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		17B16AA2085F01B31FD19AE2 /* Pods_PoseNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PoseNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D7E89123A3F83BE226BAD5C /* Pods-PoseNet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoseNet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PoseNet/Pods-PoseNet.debug.xcconfig"; sourceTree = "<group>"; };
 		4F161A57CC8DD5AA246BF99E /* Pods-PoseNet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoseNet.release.xcconfig"; path = "Pods/Target Support Files/Pods-PoseNet/Pods-PoseNet.release.xcconfig"; sourceTree = "<group>"; };
@@ -65,7 +68,6 @@
 		CA5A874F20AAA6B3004E51F6 /* soccer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = soccer.png; sourceTree = "<group>"; };
 		CA84FA9620A921DB004CFED7 /* PoseNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoseNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA84FA9920A921DB004CFED7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CA84FA9B20A921DB004CFED7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CA84FA9E20A921DB004CFED7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CA84FAA020A921DE004CFED7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA84FAA320A921DE004CFED7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				CA2D039920B2642400E79822 /* posenet257.mlmodel */,
 				CA2D039D20B2657200E79822 /* posenet337.mlmodel */,
 				CA2D039A20B2642400E79822 /* posenet513.mlmodel */,
+				0092AA6A20E2A07400A1F578 /* posenet513_v1_075.mlmodel */,
 				CA84FACA20A9776A004CFED7 /* displacementsBwd.bin */,
 				CA84FAC920A9776A004CFED7 /* displacementsFwd.bin */,
 				CA84FACB20A9776A004CFED7 /* heatmapScores.bin */,
@@ -180,13 +183,13 @@
 			children = (
 				CA304FE120A9C0090073FD62 /* Vendors */,
 				CA84FA9920A921DB004CFED7 /* AppDelegate.swift */,
-				CA84FA9B20A921DB004CFED7 /* ViewController.swift */,
 				CA84FAB020A9234B004CFED7 /* DecodePose.swift */,
 				CA84FAB520A9237F004CFED7 /* BuildPartWithScoreQueue.swift */,
 				CA84FAC220A9266A004CFED7 /* DecodeMultiPoses.swift */,
 				CA84FAB320A92378004CFED7 /* Types.swift */,
 				CA84FAB720A923A6004CFED7 /* Util.swift */,
 				CA84FAC420A928C9004CFED7 /* Commont.swift */,
+				0092AA6C20E2A0ED00A1F578 /* ViewController.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -343,13 +346,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA84FA9C20A921DB004CFED7 /* ViewController.swift in Sources */,
+				0092AA6D20E2A0ED00A1F578 /* ViewController.swift in Sources */,
 				CA84FA9A20A921DB004CFED7 /* AppDelegate.swift in Sources */,
 				CA84FAC320A9266A004CFED7 /* DecodeMultiPoses.swift in Sources */,
 				CA304FE020A9B99A0073FD62 /* Heap.swift in Sources */,
 				CA84FAB620A9237F004CFED7 /* BuildPartWithScoreQueue.swift in Sources */,
 				CA84FAC520A928C9004CFED7 /* Commont.swift in Sources */,
 				CA2D039B20B2642400E79822 /* posenet257.mlmodel in Sources */,
+				0092AA6B20E2A07400A1F578 /* posenet513_v1_075.mlmodel in Sources */,
 				CA84FAB120A9234B004CFED7 /* DecodePose.swift in Sources */,
 				CA304FDC20A9B8CD0073FD62 /* PriorityQueue.swift in Sources */,
 				CA84FAB820A923A6004CFED7 /* Util.swift in Sources */,
